@@ -97,15 +97,17 @@
     </script>
 
     <script>
-        const counterEl = document.querySelector('.js-app .counter');
+        const counterElSum = document.querySelector('.js-app p.sum .counter');
+        const counterElMult = document.querySelector('.js-app p.mult .counter');
         const buttonElMinus = document.querySelector('.js-app .minus');
         const buttonElPlus = document.querySelector('.js-app .plus');
         const buttonElMinusStep = document.querySelector('.js-app .minus.stepcounter');
         const buttonElPlusStep = document.querySelector('.js-app .plus.stepcounter');
 
-        const sumEl = document.querySelector('.js-app .sum');
-        const stepEl = document.querySelector('.js-app .step');
-        const multEl = document.querySelector('.js-app .mult');
+        const sumEl = document.querySelector('.js-app span.sum');
+        const stepElSum = document.querySelector('.js-app p.sum .step');
+        const stepElMult = document.querySelector('.js-app p.mult .step');
+        const multEl = document.querySelector('.js-app span.mult');
 
         const data = {
             counter: 1,
@@ -113,16 +115,24 @@
         };
 
         const incrementCounterHandler = function() {
-            counterEl.textContent = ++data.counter
+            data.counter++;
+            counterElSum.textContent = data.counter
+            counterElMult.textContent = data.counter
         }
         const decrementCounterHandler = function() {
-            counterEl.textContent = --data.counter
+            data.counter--;
+            counterElSum.textContent = data.counter
+            counterElMult.textContent = data.counter
         }
         const incrementStepHandler = function() {
-            stepEl.textContent = data.step += 2;
+            data.step += 2;
+            stepElSum.textContent = data.step;
+            stepElMult.textContent = data.step;
         }
         const decrementStepHandler = function() {
-            stepEl.textContent = data.step -= 2
+            data.step -= 2;
+            stepElSum.textContent = data.step;
+            stepElMult.textContent = data.step;
         }
         const getSum = function() {
             sumEl.textContent = data.counter + data.step
@@ -135,10 +145,10 @@
             let value = data[key];
             
             Object.defineProperty(data, key, {
-                get: function () {
+                get: function() {
                     return value;
                 },
-                set: function (newValue) {
+                set: function(newValue) {
                     value = newValue;
                     getSum();
                     getMult();
@@ -147,9 +157,14 @@
         });
 
 
-        counterEl.textContent = data.counter;
-        stepEl.textContent = data.step;
+        counterElSum.textContent = data.counter;
+        stepElSum.textContent = data.step;
+        counterElMult.textContent = data.counter;
+        stepElMult.textContent = data.step;
+        
         getSum();
+        getMult();
+
         buttonElMinus.addEventListener('click', decrementCounterHandler);
         buttonElPlus.addEventListener('click', incrementCounterHandler);
         buttonElMinusStep.addEventListener('click', decrementStepHandler);
